@@ -9,5 +9,7 @@
 -(void)updateWeather:(NSDictionary*)info;
 -(void)updateMusic:(NSDictionary*)info;
 -(void)updateBattery:(NSDictionary*)info;
+-(void)didAppear;
+-(void)didHide;
 
 @end
