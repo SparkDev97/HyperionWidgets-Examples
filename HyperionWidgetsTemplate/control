@@ -1,0 +1,9 @@
+Package: com.spark.hyperionwidgets.example
+Name: Example Hyperion Widget
+Depends: mobilesubstrate, com.spark.hyperion
+Version: 1.0
+Architecture: iphoneos-arm
+Description: Example Hyperion Widget
+Maintainer: Maintainer
+Author: Author
+Section: Tweaks
