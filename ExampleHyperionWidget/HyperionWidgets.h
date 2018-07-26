@@ -8,5 +8,6 @@
 -(void)updateTime:(NSDate*)time;
 -(void)updateWeather:(NSDictionary*)info;
 -(void)updateMusic:(NSDictionary*)info;
+-(void)updateBattery:(NSDictionary*)info;
 
 @end
