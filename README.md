@@ -19,7 +19,7 @@ Hyperion >= 0.2 (Available from: http://beta.sparkservers.co.uk)
 
 Included in this git is a 'HyperionWidgetsTemplate' which contains a fully compilable template of a simple HyperionWidget.
 
-The template simply displays a red box on the screen, so take a look at this.
+The template simply displays a red box on the screen, so take a look at this. For the easiest experience, build your widgets starting from this template.
 
 HyperionWidgets must conform to the 'HyperionWidget' protocol. This is included in the 'HyperionWidgets.h' API header file.
 
@@ -95,6 +95,116 @@ This is formatted like so:
 ```
 
 This Info.plist file but be in your bundle alongside the binary, so see the 'Makefile' in the template if you do not know how to copy this over.
+Your widget bundle file must then be placed in "/Library/Hyperion/Widgets" for Hyperion to find it, this is also covered in the 'Makefile'.
+
+Once your Widget is build and has the Info.plist file, it will be available in the HyperionWidgets manager and you're done!
+
+### HyperionWidgets Preferences
+
+HyperionWidgets also supports preferences, these can be accessed by force pressing on a widget icon in the manager.
+To add preferences to your widget, you simply need another plist file in the exact same format as the PreferenceBundle plists you may be familiar with.
+The preferences also support libColorPicker, so you can implement this into your preferences as well.
+
+An example preferences plist (Taken from the Battery Bubble Bar widget included in Hyperion):
+```
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>items</key>
+	<array>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
+			<string>Settings</string>
+		</dict>
+
+		<dict>
+			<key>cell</key>
+			<string>PSLinkCell</string>
+			<key>cellClass</key>
+			<string>PFSimpleLiteColorCell</string>
+			<key>libcolorpicker</key>
+			<dict>
+				<key>defaults</key>
+				<string>com.spark.hyperionwidgets.charge</string>
+				<key>key</key>
+				<string>BarColour</string>
+				<key>fallback</key>
+				<string>#00FF00</string>
+				<key>alpha</key>
+				<true/>
+			</dict>
+			<key>label</key>
+			<string>Bar Colour</string>
+			<key>key</key>
+			<string>BarColour</string>
+		</dict>
+
+		<dict>
+			<key>cell</key>
+			<string>PSLinkCell</string>
+			<key>cellClass</key>
+			<string>PFSimpleLiteColorCell</string>
+			<key>libcolorpicker</key>
+			<dict>
+				<key>defaults</key>
+				<string>com.spark.hyperionwidgets.charge</string>
+				<key>key</key>
+				<string>BackgroundColour</string>
+				<key>fallback</key>
+				<string>#808080</string>
+				<key>alpha</key>
+				<true/>
+			</dict>
+			<key>label</key>
+			<string>Background Colour</string>
+			<key>key</key>
+			<string>BackgroundColour</string>
+		</dict>
+
+		<dict>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>default</key>
+			<true/>
+			<key>defaults</key>
+			<string>com.spark.hyperionwidgets.musiccontrols</string>
+			<key>key</key>
+			<string>ShowBubbles</string>
+			<key>label</key>
+			<string>Show Bubbles</string>
+		</dict>
+
+    </array>
+	<key>title</key>
+	<string>Battery Bubble Bar</string>
+</dict>
+</plist>
+
+```
+
+This plist file must simply be called "Preferences.plist" and also included in your bundle alongside your Info.plist file.
+You can then read preferences as usual. One way of doing this is to directly read the plist file created in the 'preferences' folder.
+**Ensure the 'defaults' strings are exactly the same as your widget bundle identifier!***
+
+Example:
+```
+NSDictionary* loadedPrefs = [NSDictionary dictionaryWithContentsOfFile: @"/var/mobile/Library/Preferences/com.spark.hyperionwidgets.charge.plist"];
+
+if(loadedPrefs != NULL)
+{
+    if([loadedPrefs objectForKey:@"BarColour"] != NULL)
+    {
+        batteryBar.backgroundColor = [self colorFromHexString: [loadedPrefs objectForKey:@"BarColour"]];
+    }
+    else
+    {
+        batteryBar.backgroundColor = [UIColor greenColor];
+    }
+}
+```
 
 ## Getting Started with HTML Widgets
 
