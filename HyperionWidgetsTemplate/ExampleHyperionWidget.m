@@ -6,4 +6,10 @@
         self.contentView = [[UIView alloc] initWithFrame: CGRectMake(0, 0, 100, 100)];
         self.contentView.backgroundColor = [UIColor redColor];
     }
+
+    -(void)layoutForPreview
+    {
+
+    }
+    
 @end
