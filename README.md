@@ -95,7 +95,7 @@ This is formatted like so:
 ```
 
 This Info.plist file but be in your bundle alongside the binary, so see the 'Makefile' in the template if you do not know how to copy this over.
-Your widget bundle file must then be placed in "/Library/Hyperion/Widgets" for Hyperion to find it, this is also covered in the 'Makefile'.
+Your widget bundle file must then be placed in *"/Library/Hyperion/Widgets"* for Hyperion to find it, this is also covered in the 'Makefile'.
 
 Once your Widget is build and has the Info.plist file, it will be available in the HyperionWidgets manager and you're done!
 
