@@ -95,7 +95,7 @@ This is formatted like so:
 ```
 
 This Info.plist file but be in your bundle alongside the binary, so see the 'Makefile' in the template if you do not know how to copy this over.
-Your widget bundle file must then be placed in *"/Library/Hyperion/Widgets"* for Hyperion to find it, this is also covered in the 'Makefile'.
+Your widget bundle file must then be placed in **"/Library/Hyperion/Widgets"** for Hyperion to find it, this is also covered in the 'Makefile'.
 
 Once your Widget is build and has the Info.plist file, it will be available in the HyperionWidgets manager and you're done!
 
@@ -187,7 +187,7 @@ An example preferences plist (Taken from the Battery Bubble Bar widget included 
 
 This plist file must simply be called "Preferences.plist" and also included in your bundle alongside your Info.plist file.
 You can then read preferences as usual. One way of doing this is to directly read the plist file created in the 'preferences' folder.
-**Ensure the 'defaults' strings are exactly the same as your widget bundle identifier!***
+**Ensure the 'defaults' strings are exactly the same as your widget bundle identifier!**
 
 Example:
 ```
@@ -210,6 +210,42 @@ if(loadedPrefs != NULL)
 ![alt text](https://i.imgur.com/8BSnGHh.png "Widget Bundle")
 
 ## Getting Started with HTML Widgets
+To create a HTML widget, you simple require a bundle containing a 'index.html' file and a 'Info.plist' file.
+The bundle can contain any other files you require (e.g. css, js, images, etc), and these can be accessed from your html file.
+
+An example/template of a HTML widget is included in this git (ExampleHTMLWidget.bundle), this example simply displays a gif file.
+
+The Info.plist is slightly different to the one used for full Hyperion Widgets, an example is below:
+```
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+    <dict>
+        <!-- This is the bundle identifier for your widget. It must be unique, else it will collide with other widgets. -->
+        <key>CFBundleIdentifier</key>
+        <string>com.spark.hyperionwidgets.htmlexample</string>
+
+        <!-- This is the name that is displayed in the widget manager -->
+        <key>CFBundleDisplayName</key>
+        <string>HTML Example</string>
+        
+        <!-- Version number of the current HyperionWidgets. Unlikely to change, so leave as 1 for now. -->
+        <key>HyperionWidgetsVersion</key>
+        <integer>1</integer>
+
+        <!-- This is the default width of your web frame (Remember this can be scaled by the user.) -->
+        <key>DefaultWidth</key>
+        <real>200</real>
+
+        <!-- This is the default height of your web frame (Remember this can be scaled by the user.) -->
+        <key>DefaultHeight</key>
+        <real>200</real>
+    </dict>
+</plist>
+
+```
+
+Once your bundle is ready, you can simply place it in **"/Library/Hyperion/HTMLWidgets"**. It will then be visible in the HyperionWidgets manager.
 
 ## Authors
 SparkDev 2018

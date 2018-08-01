@@ -52,8 +52,8 @@
 
         if(!isPlaying)
         {
-            //[musicLabel setHidden: TRUE];
-            //[artworkImageView setHidden: TRUE];
+            [musicLabel setHidden: TRUE];
+            [artworkImageView setHidden: TRUE];
             return;
         }
 
@@ -68,6 +68,12 @@
         [musicLabel setText: [NSString stringWithFormat:@"%@\n%@\n%@", title, artist, album]];
         [artworkImageView setImage: artwork];
         
+        [musicLabel setHidden: FALSE];
+        [artworkImageView setHidden: FALSE];
+    }
+
+    -(void)layoutForPreview
+    {
         [musicLabel setHidden: FALSE];
         [artworkImageView setHidden: FALSE];
     }
