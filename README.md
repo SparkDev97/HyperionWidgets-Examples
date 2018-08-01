@@ -206,6 +206,9 @@ if(loadedPrefs != NULL)
 }
 ```
 
+## Example of a completed widget bundle
+![alt text](https://i.imgur.com/8BSnGHh.png "Widget Bundle")
+
 ## Getting Started with HTML Widgets
 
 ## Authors
