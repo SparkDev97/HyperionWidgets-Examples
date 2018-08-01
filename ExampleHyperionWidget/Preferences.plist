@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>items</key>
+	<array>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
+			<string>Settings</string>
+		</dict>
+
+		<dict>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>default</key>
+			<false/>
+			<key>defaults</key>
+			<string>com.spark.hyperionwidgets.example</string>
+			<key>key</key>
+			<string>HideWhenNotPlaying</string>
+			<key>label</key>
+			<string>Hide When Not Playing</string>
+		</dict>
+
+    </array>
+	<key>title</key>
+	<string>Music Controls</string>
+</dict>
+</plist>

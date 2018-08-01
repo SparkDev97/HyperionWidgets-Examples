@@ -5,6 +5,7 @@
     UILabel* timeLabel;
     UILabel* musicLabel;
     UIImageView* artworkImageView;
+    BOOL hideOnNotPlaying;
 }
 @end
 
@@ -35,6 +36,7 @@
         musicLabel.numberOfLines = 0;
         [self.contentView addSubview: musicLabel];
 
+        [self checkPrefs];
     }
 
     -(void)updateTime:(NSDate*)time
@@ -52,10 +54,14 @@
 
         if(!isPlaying)
         {
-            [musicLabel setHidden: TRUE];
-            [artworkImageView setHidden: TRUE];
+            if(hideOnNotPlaying)
+            {
+                [self.contentView setHidden: TRUE];
+            }
             return;
         }
+        
+        [self.contentView setHidden: FALSE];
 
         NSDictionary* metadata = [info objectForKey:@"Information"];
 
@@ -63,10 +69,16 @@
         NSString *artist    = [metadata objectForKey:@"kMRMediaRemoteNowPlayingInfoArtist"];
         NSString *album     = [metadata objectForKey:@"kMRMediaRemoteNowPlayingInfoAlbum"];
         NSData* artworkData = [metadata objectForKey:@"kMRMediaRemoteNowPlayingInfoArtworkData"];
-        UIImage* artwork    = [UIImage imageWithData:artworkData];
+
+        UIImage* artwork = [UIImage imageWithData:artworkData];
+        if(artwork != NULL)
+        {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [artworkImageView setImage: artwork];
+            });
+        }
 
         [musicLabel setText: [NSString stringWithFormat:@"%@\n%@\n%@", title, artist, album]];
-        [artworkImageView setImage: artwork];
         
         [musicLabel setHidden: FALSE];
         [artworkImageView setHidden: FALSE];
@@ -76,5 +88,29 @@
     {
         [musicLabel setHidden: FALSE];
         [artworkImageView setHidden: FALSE];
+    }
+
+    -(void)didAppear
+    {
+        [self checkPrefs];
+    }
+
+    -(void)checkPrefs
+    {
+        NSDictionary* loadedPrefs = [NSDictionary dictionaryWithContentsOfFile: @"/var/mobile/Library/Preferences/com.spark.hyperionwidgets.example.plist"];
+
+        if(loadedPrefs != NULL && [loadedPrefs objectForKey:@"HideWhenNotPlaying"] != NULL)
+        {
+            hideOnNotPlaying = [[loadedPrefs objectForKey:@"HideWhenNotPlaying"] boolValue];
+        }
+        else
+        {
+            hideOnNotPlaying = FALSE;
+        }
+
+        if(!hideOnNotPlaying)
+        {
+            [self.contentView setHidden: FALSE];
+        }
     }
 @end
